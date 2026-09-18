@@ -80,6 +80,17 @@ class GameLibrary(context: Context) {
         return load(dir)
     }
 
+    fun exportSave(entry: GameEntry): File {
+    val out = File(root.parentFile, "${entry.name}_save.zip")
+    java.util.zip.ZipOutputStream(out.outputStream()).use { zip ->
+        entry.dataDir.walkTopDown().filter { it.isFile }.forEach { file ->
+            zip.putNextEntry(java.util.zip.ZipEntry(file.relativeTo(entry.dataDir).path))
+            file.inputStream().use { it.copyTo(zip) }
+            zip.closeEntry()
+        }
+    }
+    return out
+    }
     fun delete(entry: GameEntry) {
         File(root, entry.id).deleteRecursively()
     }
