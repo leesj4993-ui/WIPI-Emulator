@@ -137,6 +137,9 @@ class MainActivity : ComponentActivity() {
                         games = library.list()
                         entry != null
                     },
+                    onExport = { entry ->
+    library.exportSave(entry)
+},
                     onDelete = { entry ->
                         library.delete(entry)
                         games = library.list()
