@@ -22,6 +22,10 @@ jobs:
         with:
           targets: aarch64-linux-android
 
+      - name: Install Android NDK
+        run: |
+          yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager "ndk;27.1.12297006"
+
       - name: Build Rust
         env:
           CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER: /usr/local/lib/android/sdk/ndk/27.1.12297006/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android26-clang
